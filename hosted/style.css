@@ -237,7 +237,7 @@ h3.emptyDomo {
     text-align: center;
 }
 
-h3 {
+.domo h3 {
     font-weight: bold;
     font-size: 1.2em;
     margin: auto;
