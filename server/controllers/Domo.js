@@ -21,6 +21,7 @@ const makeDomo = (req, res) => {
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    height: req.body.height,
     owner: req.session.account._id,
   };
 
@@ -52,6 +53,28 @@ const getDomos = (request, response) => {
   });
 };
 
-module.exports.makerPage = makerPage;
-module.exports.getDomos = getDomos;
-module.exports.make = makeDomo;
+const removeDomo = (request, response) => {
+  const req = request;
+  const res = response;
+
+  const search = {
+    owner: req.session.account._id,
+    _id: req.body._id,
+  };
+
+  return Domo.DomoModel.find(search).remove().exec((err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.status(204).send();
+  });
+};
+
+module.exports = {
+  makerPage,
+  getDomos,
+  removeDomo,
+  make: makeDomo,
+};
